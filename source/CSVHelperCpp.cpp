@@ -23,7 +23,7 @@ int main()
 	// Create root node
 	// g_SceneRoot = new CNode();
 
-	CSVReader* reader = new CSVReader(FILENAME);
+	CSVReaderS3e* reader = new CSVReaderS3e(FILENAME);
 
 	IwTrace(GAME, ("NUMERO: HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"));
 

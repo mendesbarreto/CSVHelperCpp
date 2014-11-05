@@ -1,15 +1,10 @@
 #ifndef __CVS__HELPER__H 
 #define __CVS__HELPER__H
 
-#define READ "rb"
-#define WRITE "wb"
-
 #include <exception>
 #include <string>
 #include <iostream>
 #include <sstream>
-#include "s3e.h"
-
 
 class CSVRow
 {
@@ -30,27 +25,25 @@ public:
 
 	inline std::string GetData(){ return m_data; }
 	inline void SetData(std::string str)
-	{ 
+	{
 		m_data.clear();
 		m_data.append(str.c_str());
 		m_dataStream.str(m_data);
 	}
 };
 
-
 class CSVReader
 {
-private:
-	s3eFile* m_pFile;
+protected:
 	std::istringstream m_fileStream;
 	int32 m_fileSize;
 	int32 m_rowNumber;
 	char* m_pContent;
+	
 
-public:	
-	CSVReader( char* fileName );
-	CSVReader( std::string fileName );
-
+public:
+	CSVReader(void);
+	void SetContent(std::string &contentFile);
 	bool ReadRow(CSVRow& row);
 
 	int32 GetFileSize()
@@ -61,22 +54,24 @@ public:
 	~CSVReader();
 };
 
-// class CSVFileNotFound : exception
-// {
-// 	virtual const char* what() const throw()
-// 	{
-// 		return "The current file could not be found";
-// 	}
-// };
-// 
-// class CSVFileCouldNotBeRead : exception
-// {
-// 	virtual const char* what() const throw()
-// 	{
-// 		return "The current file could not be read";
-// 	}
-// };
 
+#ifdef IW_SDK
+
+#include "s3e.h"
+
+#define READ "rb"
+#define WRITE "wb"
+
+class CSVReaderS3e : public CSVReader
+{
+private:
+	s3eFile* m_pFile;
+
+public:
+	CSVReaderS3e(char* fileName);
+	~CSVReaderS3e();
+};
+#endif // IW_SDK
 
 #endif // __CVS__HELPER__H
 
