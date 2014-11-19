@@ -1,0 +1,22 @@
+#!/usr/bin/env mkb
+option lib
+files
+{
+    source/CSVHelperCpp.cpp
+	source/CSVHelper.cpp
+	source/CSVHelper.h
+}
+
+subprojects
+{
+    iwutil
+    iw2dscenegraphcore
+    iw2dscenegraph
+    iwgx
+    iwresmanager
+    iwtween
+}
+
+deployment
+{
+}
